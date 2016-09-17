@@ -138,7 +138,7 @@ Change 'def/speak' to the following:
       Message.create! content: data['message']
     end
 
-/app/models/message.rb
+> /app/models/message.rb
 
     after_create_commit { MessageBroadcastJob.perform_later self }
 
@@ -167,11 +167,20 @@ app/assets/javascripts/channels/room.coffee
 
 dhhaction.tomgdow.com
 
+Deployed on Digital ocean with Puma as stand-alone server behind an Apache reverse proxy (see [here](https://www.phusionpassenger.com/library/deploy/standalone/reverse_proxy.html))
+
 
 ### Notes
-The tutorial is available at https://www.youtube.com/watch?v=n0WUjGkDFS0
+The tutorial (*Rails 5: Action Cable demo* by *David Heinemeier Hansson*) is available at https://www.youtube.com/watch?v=n0WUjGkDFS0  
 
 Developed locally on vagrant virtual machine with Ubuntu/trusty64,
 Rails 5.0.0.1 and  Ruby 2.3.1
 
-Deployed on Digital ocean with Puma as stand-alone server behind an Apache reverse proxy (see [here](https://www.phusionpassenger.com/library/deploy/standalone/reverse_proxy.html))
+To use port 4000 instead of port 3000, add the following line to development.rb  
+
+    config.action_cable.allowed_request_origins = ['http://localhost:4000'] 
+  
+The followinng will now work:  
+
+    rails s -p 4000 -b 0.0.0.0
+
