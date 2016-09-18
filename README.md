@@ -5,7 +5,7 @@
     bundle install
     rails g controller rooms show
 
-/config/routes.rb
+> /config/routes.rb
     
     root to: 'rooms#show'
 
@@ -19,7 +19,7 @@
     rails g model message content:text
     rails db:migrate
 
-/app/controllers/rooms_controller.rb 
+> /app/controllers/rooms_controller.rb 
 
     def show
       @messages = Message.all
@@ -37,7 +37,7 @@ add
        <p><%= message.content %></p>
     </div>
 
-app/views/rooms/show.html.erb  
+> app/views/rooms/show.html.erb  
 
 Delete all and add  
 
@@ -61,11 +61,11 @@ Generate channel
 
     rails g channel room speak  
 
-/config/routes.rb
+> /config/routes.rb
 
     mount ActionCable.server => '/cable'
 
-app/assets/javascripts/cable.js  
+> app/assets/javascripts/cable.js  
 
 Check that the following is uncommented 
 
@@ -74,12 +74,12 @@ Check that the following is uncommented
        App.cable = ActionCable.createConsumer();
     }).call(this);
 
-app/assets/javascripts/channels/room.coffee
+> app/assets/javascripts/channels/room.coffee
 
     speak: (message) -> 
       @perform 'speak', message: message
 
-app/channels/room_channel.rb
+> app/channels/room_channel.rb
 
     def subscribed
       stream_from "room_channel"
@@ -89,7 +89,7 @@ app/channels/room_channel.rb
       ActionCable.server.broadcast 'room_channel', message: data['message']
     end
 
-app/assets/javascripts/channels/room.coffee 
+> app/assets/javascripts/channels/room.coffee 
 
     received: (data) -> 
       alert data['message']
@@ -102,7 +102,7 @@ In (Chrome) browser console:
 
 Both browsers get message instantaneously
 
-app/views/rooms/show.html.erb  
+> app/views/rooms/show.html.erb  
 
 add the following: 
 
@@ -111,7 +111,7 @@ add the following:
       <input type ="text" data-behavior="room_speaker">
     </form>
 
-app/assets/javascripts/channels/room.coffee  
+> app/assets/javascripts/channels/room.coffee  
 
 add
 
@@ -130,7 +130,7 @@ Should get alert box as before, but now from input box
 
 Now want to 'talk' to database
 
-app/channels/room_channel.rb  
+> app/channels/room_channel.rb  
 
 Change 'def/speak' to the following: 
  
@@ -146,7 +146,7 @@ Change 'def/speak' to the following:
 
     rails g job MessageBroadcast
 
-app/jobs/message_broadcast_job.rb
+> app/jobs/message_broadcast_job.rb
 
     queue_as :default
 
@@ -159,7 +159,7 @@ app/jobs/message_broadcast_job.rb
         ApplicationController.renderer.render(partial: 'messages/message', locals: {message: message})
       end
 
-app/assets/javascripts/channels/room.coffee
+> app/assets/javascripts/channels/room.coffee
 
     received: (data) -> 
       $('#messages').append data['message']
@@ -176,11 +176,36 @@ The tutorial (*Rails 5: Action Cable demo* by *David Heinemeier Hansson*) is ava
 Developed locally on vagrant virtual machine with Ubuntu/trusty64,
 Rails 5.0.0.1 and  Ruby 2.3.1
 
-To use port 4000 instead of port 3000, add the following line to development.rb  
+**To use port 4000 instead of port 3000**
+> config/environments/development.rb  
+
+add the following line:
 
     config.action_cable.allowed_request_origins = ['http://localhost:4000'] 
   
-The followinng will now work:  
+The following will now work:  
 
     rails s -p 4000 -b 0.0.0.0
 
+**To include caching**
+> app/views/messages/_message.html.erb  
+
+change to the following:
+
+    <% cache message do %>
+    <div class="message">
+       <p><%= message.content %></p>
+    </div>
+    <% end %>
+
+**Comment**  
+
+The following piece of code
+
+    <%= action_cable_meta_tag %>
+
+is not present in:
+
+    app/views/layouts/application.html.erb
+
+Perhaps it should be included?
