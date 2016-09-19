@@ -1,5 +1,12 @@
 ### Action Cable Demo (David Heinemeier Hansson tutorial)
 
+The tutorial (*Rails 5: Action Cable demo* by *David Heinemeier Hansson*) is available at https://www.youtube.com/watch?v=n0WUjGkDFS0  
+
+### Method
+
+Developed locally from the above tutorial on a vagrant virtual machine with Ubuntu/trusty64,
+Rails 5.0.0.1 and  Ruby 2.3.1, as follows: 
+
     rails new campfire
     cd campfire
     bundle install
@@ -102,6 +109,8 @@ In (Chrome) browser console:
 
 Both browsers get message instantaneously
 
+&hellip;  
+
 > app/views/rooms/show.html.erb  
 
 add the following: 
@@ -163,18 +172,14 @@ Change 'def/speak' to the following:
 
     received: (data) -> 
       $('#messages').append data['message']
+
 ### Deployment
 
-dhhaction.tomgdow.com
+[Deployed](http://dhhaction.tomgdow.com) on [Digital Ocean](https://www.digitalocean.com/) with Puma as stand-alone server behind an Apache reverse proxy (see [here](https://www.phusionpassenger.com/library/deploy/standalone/reverse_proxy.html))
 
-Deployed on Digital ocean with Puma as stand-alone server behind an Apache reverse proxy (see [here](https://www.phusionpassenger.com/library/deploy/standalone/reverse_proxy.html))
-
+http://dhhaction.tomgdow.com
 
 ### Notes
-The tutorial (*Rails 5: Action Cable demo* by *David Heinemeier Hansson*) is available at https://www.youtube.com/watch?v=n0WUjGkDFS0  
-
-Developed locally on vagrant virtual machine with Ubuntu/trusty64,
-Rails 5.0.0.1 and  Ruby 2.3.1
 
 **To use port 4000 instead of port 3000**
 > config/environments/development.rb  
