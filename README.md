@@ -4,7 +4,7 @@ The tutorial (*Rails 5: Action Cable demo* by *David Heinemeier Hansson*) is ava
 
 ### Method
 
-Developed locally from the above tutorial on a vagrant virtual machine with Ubuntu/trusty64,
+Developed locally from the above [tutorial](https://www.youtube.com/watch?v=n0WUjGkDFS0) on a vagrant virtual machine with Ubuntu/trusty64,
 Rails 5.0.0.1 and  Ruby 2.3.1, as follows: 
 
     rails new campfire
@@ -211,6 +211,6 @@ The following piece of code
 
 is not present in:
 
-    app/views/layouts/application.html.erb
+> app/views/layouts/application.html.erb
 
 Perhaps it should be included?
